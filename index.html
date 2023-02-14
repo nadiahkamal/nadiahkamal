@@ -16,23 +16,11 @@
         body{
             margin: 0;
             padding: 0;
-            display: block;
         }
-        canvas {
-            display: block;
-        }
+       
     </style>
 </head>
 <body>
-    <script src="./libs/fas.js"></script>
-	<script type="module">
-        import { App } from './app.js';
-        
-		document.addEventListener("DOMContentLoaded", function(){
-			const app = new App();
-			window.app = app;
-		});
-	</script>
     <script type="module">
         // Import three
         import * as THREE from 'https://unpkg.com/three/build/three.module.js';
@@ -105,5 +93,15 @@
         });
 
     </script>
+    <script src="./libs/fas.js"></script>
+	<script type="module">
+        import { App } from './app.js';
+        
+		document.addEventListener("DOMContentLoaded", function(){
+			const app = new App();
+			window.app = app;
+		});
+	</script>
+    
 </body>
 </html>
