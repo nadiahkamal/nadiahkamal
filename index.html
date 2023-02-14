@@ -54,7 +54,6 @@
         light.position.set(1, 1, 1).normalize();
         scene.add(light);
         scene.add(new THREE.AmbientLight(0xffffff,0.5))
-        scene.background = new THREE.Color( 0xff0000 );
 
         // Make a blue cube
         let cube = new THREE.Mesh(
@@ -66,6 +65,7 @@
 
         // Make a renderer that fills the screen
         let renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer = new THREE.WebGLRenderer( { alpha: true } )
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         // Turn on VR support
