@@ -15,9 +15,8 @@
     <style>
         body{
             margin: 0;
-            padding: 0;
+            padding: 0;   
         }
-       
     </style>
 </head>
 <body>
@@ -29,76 +28,6 @@
 			const app = new App();
 			window.app = app;
 		});
-        // Import three
-        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
-
-        // Import the default VRButton
-        import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
-
-        // Make a new scene
-        let scene = new THREE.Scene();
-
-        // Make a camera. note that far is set to 100, which is better for real-world sized environments
-        let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 1.6, 3);
-    
-        scene.add(camera);
-
-        // Add some lights
-        var light = new THREE.DirectionalLight(0xffffff,0.5);
-        light.position.set(1, 1, 1).normalize();
-        scene.add(light);
-        scene.add(new THREE.AmbientLight(0xffffff,0.5))
-
-        // Make a blue cube
-        let cube = new THREE.Mesh(
-            new THREE.BoxBufferGeometry(2, 2, 2),
-            new THREE.MeshLambertMaterial({color:'yellow'})
-        );
-        cube.position.set(0, 1.5, -10);
-        scene.add(cube);
-
-        // Make a renderer that fills the screen
-        let renderer = new THREE.WebGLRenderer({antialias: true});
-        renderer = new THREE.WebGLRenderer( { alpha: true } )
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        // Turn on VR support
-        renderer.xr.enabled = true;
-        // Set animation loop
-        renderer.setAnimationLoop(render);
-        // Add canvas to the page
-        document.body.appendChild(renderer.domElement);
-
-        // Add a button to enter/exit vr to the page
-        document.body.appendChild(VRButton.createButton(renderer));
-
-        function render(time) {  
-            // Rotate the cube
-            cube.rotation.y = time / 1000;
-            cube.rotation.x = time / 1000;       
-            // Draw everything
-            renderer.render(scene, camera);
-        }
-
-        // Handle browser resize
-        window.addEventListener('resize', onWindowResize, false);
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-
-        let controller = renderer.xr.getController(0);
-        controller.addEventListener('selectstart', () => {
-	cube.material = new THREE.MeshLambertMaterial({color:'red'})
-        });
-        controller.addEventListener('selectend', () => {
-	cube.material = new THREE.MeshLambertMaterial({color:'blue'})
-        });
 	</script>
-    
 </body>
 </html>
