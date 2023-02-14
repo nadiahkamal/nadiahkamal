@@ -37,6 +37,10 @@ class App{
         );
         this.cube.position.set(0, 1.5, 4);
         this.scene.add(this.cube);
+        function render(time) {
+            // Rotate the cube
+            cube.rotation.y = time / 1000;
+            cube.rotation.x = time / 1000;
 
 		this.renderer = new THREE.WebGLRenderer({ antialias: true });
 		this.renderer.setPixelRatio( window.devicePixelRatio );
