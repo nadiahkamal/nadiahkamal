@@ -21,7 +21,14 @@
     </style>
 </head>
 <body>
-    <script type="module">
+    <script src="./libs/fas.js"></script>
+	<script type="module">
+        import { App } from './app.js';
+        
+		document.addEventListener("DOMContentLoaded", function(){
+			const app = new App();
+			window.app = app;
+		});
         // Import three
         import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 
@@ -91,16 +98,6 @@
         controller.addEventListener('selectend', () => {
 	cube.material = new THREE.MeshLambertMaterial({color:'blue'})
         });
-
-    </script>
-    <script src="./libs/fas.js"></script>
-	<script type="module">
-        import { App } from './app.js';
-        
-		document.addEventListener("DOMContentLoaded", function(){
-			const app = new App();
-			window.app = app;
-		});
 	</script>
     
 </body>
