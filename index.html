@@ -16,6 +16,7 @@
         body{
             margin: 0;
             padding: 0;
+            display: block;
         }
         canvas {
             display: block;
@@ -35,6 +36,8 @@
     <script type="module">
         // Import three
         import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+        var scene = new THREE.Scene(); // initialising the scene
+        scene.background = new THREE.Color( 0xff0000 );
 
         // Import the default VRButton
         import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
@@ -71,7 +74,7 @@
         // Set animation loop
         renderer.setAnimationLoop(render);
         // Add canvas to the page
-        document.body.appendChild(renderer.domElement);
+        //document.body.appendChild(renderer.domElement);
 
         // Add a button to enter/exit vr to the page
         document.body.appendChild(VRButton.createButton(renderer));
