@@ -33,42 +33,75 @@
 		});
 	</script>
     <script type="module">
-        class App{
-    constructor(){
-        const container = document.createElement( 'div' );
-        document.body.appendChild( container );
+        // Import three
+        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 
-        this.assetsPath = './assets/';
+        // Import the default VRButton
+        import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
 
-        this.camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.01, 500 );
-        this.camera.position.set( 0, 1.6, 0 );
+        // Make a new scene
+        let scene = new THREE.Scene();
 
-        this.dolly = new THREE.Object3D(  );
-        this.dolly.position.set(0, 0, 10);
-        this.dolly.add( this.camera );
-        this.dummyCam = new THREE.Object3D();
-        this.camera.add( this.dummyCam );
+        // Make a camera. note that far is set to 100, which is better for real-world sized environments
+        let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 1.6, 3);
+        shimmer.style.backgroundColor = 'transparent'; 
+        scene.add(camera);
 
-        this.scene = new THREE.Scene();
-        this.scene.add( this.dolly );
+        // Add some lights
+        var light = new THREE.DirectionalLight(0xffffff,0.5);
+        light.position.set(1, 1, 1).normalize();
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0xffffff,0.5))
 
-        const ambient = new THREE.HemisphereLight(0xF52D03, 0xF52D03, 0.8);
-        this.scene.add(ambient);
-        this.cube = new THREE.Mesh(
+        // Make a blue cube
+        let cube = new THREE.Mesh(
             new THREE.BoxBufferGeometry(2, 2, 2),
-            new THREE.MeshLambertMaterial({ color: 'blue' })
+            new THREE.MeshLambertMaterial({color:'yellow'})
         );
-        this.cube.position.set(0, 1.5, 4);
-        this.scene.add(this.cube);
+        cube.position.set(0, 1.5, -10);
+        scene.add(cube);
 
-        this.renderer = new THREE.WebGLRenderer({ antialias: true });
-        this.renderer.setPixelRatio( window.devicePixelRatio );
-        this.renderer.setSize( window.innerWidth, window.innerHeight );
-        this.renderer.outputEncoding = THREE.sRGBEncoding;
-        container.appendChild( this.renderer.domElement );
-        this.setEnvironment();
-    }
-}
+        // Make a renderer that fills the screen
+        let renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // Turn on VR support
+        renderer.xr.enabled = true;
+        // Set animation loop
+        renderer.setAnimationLoop(render);
+        // Add canvas to the page
+        document.body.appendChild(renderer.domElement);
+
+        // Add a button to enter/exit vr to the page
+        document.body.appendChild(VRButton.createButton(renderer));
+
+        function render(time) {  
+            // Rotate the cube
+            cube.rotation.y = time / 1000;
+            cube.rotation.x = time / 1000;       
+            // Draw everything
+            renderer.render(scene, camera);
+        }
+
+        // Handle browser resize
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+
+        let controller = renderer.xr.getController(0);
+        controller.addEventListener('selectstart', () => {
+	cube.material = new THREE.MeshLambertMaterial({color:'red'})
+        });
+        controller.addEventListener('selectend', () => {
+	cube.material = new THREE.MeshLambertMaterial({color:'blue'})
+        });
+
     </script>
 </body>
 </html>
