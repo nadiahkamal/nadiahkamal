@@ -42,7 +42,6 @@
 
         // Make a new scene
         let scene = new THREE.Scene();
-        scene.background = new THREE.Color( 0xff0000 );
 
         // Make a camera. note that far is set to 100, which is better for real-world sized environments
         let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -74,7 +73,7 @@
         // Set animation loop
         renderer.setAnimationLoop(render);
         // Add canvas to the page
-        document.body.appendChild(renderer.domElement);
+        //document.body.appendChild(renderer.domElement);
 
         // Add a button to enter/exit vr to the page
         document.body.appendChild(VRButton.createButton(renderer));
