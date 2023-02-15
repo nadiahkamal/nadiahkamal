@@ -36,7 +36,7 @@ class App{
             new THREE.BoxBufferGeometry(1, 1, 1),
             new THREE.MeshLambertMaterial({color:'green'})
         );
-        this.cube.position.set(5, 10, -15);
+        this.cube.position.set(-5, 10, 20);
         this.scene.add(this.cube);
 
 		this.renderer = new THREE.WebGLRenderer({ antialias: true });
