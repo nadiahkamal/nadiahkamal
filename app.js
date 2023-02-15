@@ -36,6 +36,12 @@ class App{
             new THREE.MeshLambertMaterial({ color: 'green' })
         );
         this.cube.position.set(0, 1.5, 4);
+        this.set animation loop
+        renderer.setAnimationLoop(render);
+
+        this.rotate the cube
+            this.cube.rotation.y = time / 1000;
+            this.cube.rotation.x = time / 1000; 
         this.scene.add(this.cube);
 
 		this.renderer = new THREE.WebGLRenderer({ antialias: true });
