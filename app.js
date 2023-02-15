@@ -38,7 +38,6 @@ class App{
         );
         this.cube.position.set(0, 1.5, 4);
         this.scene.add(this.cube);
-        
 
 		this.renderer = new THREE.WebGLRenderer({ antialias: true });
 		this.renderer.setPixelRatio( window.devicePixelRatio );
