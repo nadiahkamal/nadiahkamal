@@ -324,6 +324,9 @@ class App{
 
 	render( timestamp, frame ){
         const dt = this.clock.getDelta();
+
+        this.cube.rotation.y = timestamp / 1000;
+        this.cube.rotation.x = timestamp / 1000;
         
         if (this.renderer.xr.isPresenting){
             let moveGaze = false;
